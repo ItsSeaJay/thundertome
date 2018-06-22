@@ -6,6 +6,9 @@ class Journal extends CI_Controller {
 	public function __construct()
 	{
 		$assets = array();
+		$assets['models'] = array(
+			'application_model'
+		);
 		$assets['helpers'] = array(
 			'url'
 		);
@@ -32,6 +35,7 @@ class Journal extends CI_Controller {
 		$parser_data['base_url'] = base_url();
 		$parser_data['index_page'] = index_page();
 		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data);
+		
 
 		return $parser_data;
 	}
