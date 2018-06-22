@@ -57,4 +57,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['(:any)'] = 'journal/entries/$1';
 $route['(:any)/(:any)'] = 'journal/entries/$1/$2';
 $route['(:any)/(:any)/(:any)'] = 'journal/entries/$1/$2/$3';
-$route['(:any)/(:any)/(:any)/(:any)'] = 'journal/entries/$1/$2/$3/$4';
+$route['(:any)/(:any)/(:any)/(:any)'] = 'journal/entry/$1/$2/$3/$4';
