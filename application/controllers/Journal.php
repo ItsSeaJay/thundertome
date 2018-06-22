@@ -21,6 +21,9 @@ class Journal extends CI_Controller {
 	public function index()
 	{
 		$parser_data = $this->get_parser_data();
+		$parser_data['title'] = 'Journal';
+
+		$this->parser->parse('journal.html', $parser_data);
 	}
 
 	public function get_parser_data()
