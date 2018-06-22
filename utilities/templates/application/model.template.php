@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class {name} extends CI_Model {{
+class {name}_model extends CI_Model {{
 
-    private $table = '{table}';
+	private $table = '{table}';
 
-    public function __construct()
-    {{
-        parent::__construct();
-        $this->load->database();
-    }}
+	public function __construct()
+	{{
+		parent::__construct();
+		$this->load->database();
+	}}
 }}
