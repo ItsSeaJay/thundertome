@@ -11,8 +11,9 @@ class Entry_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_all()
+	public function get_all($order = 'DESC')
 	{
+		$this->db->order_by('date', $order);
 		$query = $this->db->get($this->table);
 		$result = $query->result_array();
 

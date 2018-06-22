@@ -32,24 +32,51 @@ class Journal extends CI_Controller {
 		$this->parser->parse('journal.html', $parser_data);
 	}
 
-	public function entries($year = '')
+	public function entries($year = '', $month = '', $day = '', $uri = '')
 	{
-		// Determine which entries should be fetched from the database
-		$where = array(
-			'year' => $year
-		);
-
 		$parser_data = $this->get_parser_data();
-		$parser_data['title'] = 'Journal';
-		$parser_data['entries'] = $this->entry_model->get_where($where);
 
+		// Figure out which action should be taken based on the uri
+		$actions = array(
+			1 => array(
+				'year' => $year
+			),
+			2 => array(
+				'year' => $year,
+				'month' => $month
+			),
+			3 => array(
+				'year' => $year,
+				'month' => $month,
+				'day' => $day
+			),
+			4 => array(
+				'year' => $year,
+				'month' => $month,
+				'day' => $day,
+				'uri' => $uri
+			)
+		);
+		$action = $actions[$this->uri->total_segments()];
+
+		// Get the entries based on the action chosen above
+		$parser_data['entries'] = $this->entry_model->get_where($action);
+
+		// Build the page title based on the URI
+		$titles = array(
+			1 => 'Entries from ' . $year,
+			2 => 'Entries from ' . $month . $year,
+			3 => 'Entries from ' . $day . $month . $year
+		);
+		$parser_data['title'] = $titles[$this->uri->total_segments()];
+		
 		if (count($parser_data['entries']) > 0)
 		{
 			$this->parser->parse('journal.html', $parser_data);
 		}
 		else
 		{
-			echo 'No entries found...';
+			show_404();
 		}
 	}
 
