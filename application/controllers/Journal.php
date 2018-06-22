@@ -32,11 +32,13 @@ class Journal extends CI_Controller {
 		$this->parser->parse('journal.html', $parser_data);
 	}
 
-	public function entries($year = '', $month = '', $day = '', $uri = '')
+	public function entries($year = '')
 	{
+		// Determine which entries should be fetched from the database
 		$where = array(
 			'year' => $year
 		);
+
 		$parser_data = $this->get_parser_data();
 		$parser_data['title'] = 'Journal';
 		$parser_data['entries'] = $this->entry_model->get_where($where);

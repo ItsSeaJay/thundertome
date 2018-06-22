@@ -52,3 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'journal';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// Entry permalinks
+$route['(:any)'] = 'journal/entries/$1';
+$route['(:any)/(:any)'] = 'journal/entries/$1/$2';
+$route['(:any)/(:any)/(:any)'] = 'journal/entries/$1/$2/$3';
+$route['(:any)/(:any)/(:any)/(:any)'] = 'journal/entries/$1/$2/$3/$4';
