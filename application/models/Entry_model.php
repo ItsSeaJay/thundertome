@@ -18,4 +18,13 @@ class Entry_model extends CI_Model {
 
 		return $result;
 	}
+
+	public function get_where($where = array())
+	{
+		$this->db->where($where);
+		$query = $this->db->get($this->table);
+		$result = $query->result_array();
+
+		return $result;
+	}
 }

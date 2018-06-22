@@ -23,12 +23,32 @@ class Journal extends CI_Controller {
 		load_assets($assets);
 	}
 
-	public function index($year = '', $month = '', $day = '')
+	public function index()
 	{
 		$parser_data = $this->get_parser_data();
 		$parser_data['title'] = 'Journal';
+		$parser_data['entries'] = $this->get_entries();
 
 		$this->parser->parse('journal.html', $parser_data);
+	}
+
+	public function entries($year = '', $month = '', $day = '', $uri = '')
+	{
+		$where = array(
+			'year' => $year
+		);
+		$parser_data = $this->get_parser_data();
+		$parser_data['title'] = 'Journal';
+		$parser_data['entries'] = $this->entry_model->get_where($where);
+
+		if (count($parser_data['entries']) > 0)
+		{
+			$this->parser->parse('journal.html', $parser_data);
+		}
+		else
+		{
+			echo 'No entries found...';
+		}
 	}
 
 	private function get_parser_data()
@@ -37,7 +57,6 @@ class Journal extends CI_Controller {
 		$parser_data['base_url'] = base_url();
 		$parser_data['index_page'] = index_page();
 		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data);
-		$parser_data['entries'] = $this->get_entries();
 
 		return $parser_data;
 	}
@@ -53,13 +72,14 @@ class Journal extends CI_Controller {
 		return $stylesheets;
 	}
 
-	private function get_entries()
+	private function get_entries($year = '', $month = '', $day = '')
 	{
 		$entries = $this->entry_model->get_all();
 
 		foreach ($entries as &$entry)
 		{
 			// Change the values of the entry to better suit the parser
+			$entry['date'] = date('d.m.Y', strtotime($entry['date']));
 		}
 
 		return $entries;
