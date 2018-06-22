@@ -5,9 +5,11 @@ class Journal extends CI_Controller {
 
 	public function __construct()
 	{
+		// Define which kind of assets are needed
 		$assets = array();
 		$assets['models'] = array(
-			'application_model'
+			'application_model',
+			'entry_model'
 		);
 		$assets['helpers'] = array(
 			'url'
@@ -21,7 +23,7 @@ class Journal extends CI_Controller {
 		load_assets($assets);
 	}
 
-	public function index()
+	public function index($year = '', $month = '', $day = '')
 	{
 		$parser_data = $this->get_parser_data();
 		$parser_data['title'] = 'Journal';
@@ -29,13 +31,13 @@ class Journal extends CI_Controller {
 		$this->parser->parse('journal.html', $parser_data);
 	}
 
-	public function get_parser_data()
+	private function get_parser_data()
 	{
 		$parser_data = array();
 		$parser_data['base_url'] = base_url();
 		$parser_data['index_page'] = index_page();
 		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data);
-		
+		$parser_data['entries'] = $this->get_entries();
 
 		return $parser_data;
 	}
@@ -49,5 +51,17 @@ class Journal extends CI_Controller {
 		);
 
 		return $stylesheets;
+	}
+
+	private function get_entries()
+	{
+		$entries = $this->entry_model->get_all();
+
+		foreach ($entries as &$entry)
+		{
+			// Change the values of the entry to better suit the parser
+		}
+
+		return $entries;
 	}
 }
