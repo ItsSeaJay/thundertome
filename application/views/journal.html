@@ -9,6 +9,9 @@
 
 		<link rel="manifest" href="site.webmanifest">
 		<link rel="apple-touch-icon" href="icon.png">
+
+		<!-- Stylesheets -->
+		{stylesheets}
 	</head>
 
 	<body>
@@ -23,6 +26,10 @@
 			</p>
 		<![endif]-->
 
-		<!-- Add your site or application content here -->
+		{entries}
+			<div class="entry">
+				<h1>{title}</h1>
+			</div>
+		{entries}
 	</body>
 </html>

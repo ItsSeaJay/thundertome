@@ -31,7 +31,19 @@ class Journal extends CI_Controller {
 		$parser_data = array();
 		$parser_data['base_url'] = base_url();
 		$parser_data['index_page'] = index_page();
+		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data);
 
 		return $parser_data;
+	}
+
+	private function get_stylesheets($parser_data = array())
+	{
+		$stylesheets = $this->parser->parse(
+			'stylesheets.html',
+			$parser_data,
+			TRUE // Return result as a string
+		);
+
+		return $stylesheets;
 	}
 }
