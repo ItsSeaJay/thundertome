@@ -11,26 +11,19 @@ class Entry_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get()
-	{
-		$query = $this->db->get($this->table);
-		$result = $query->result_array();
-
-		return $result;
-	}
-
-	public function get_all($order = 'DESC')
-	{
-		$this->db->order_by('date', $order);
-		$query = $this->db->get($this->table);
-		$result = $query->result_array();
-
-		return $result;
-	}
-
-	public function get_where($where = array())
+	public function get_entry($where = array())
 	{
 		$this->db->where($where);
+		$query = $this->db->get($this->table);
+		$result = $query->row_array();
+
+		return $result;
+	}
+
+	public function get_entries($where = array(), $order = 'DESC')
+	{
+		$this->db->where($where);
+		$this->db->order_by('date', $order);
 		$query = $this->db->get($this->table);
 		$result = $query->result_array();
 

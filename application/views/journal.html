@@ -26,9 +26,15 @@
 			</p>
 		<![endif]-->
 
+		<a href="{base_url}">
+			<h1>Journal</h1>
+		</a>
+
 		{entries}
 			<div class="entry">
-				<h1>{title}</h1>
+				<a href="{base_url}{index_page}{year}/{month}/{day}/{uri}">
+					<h2>{title}</h2>
+				</a>
 				<p>
 					<strong>{date}</strong>
 				</p>
