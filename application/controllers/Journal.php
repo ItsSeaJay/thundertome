@@ -36,41 +36,76 @@ class Journal extends CI_Controller {
 	{
 		$parser_data = $this->get_parser_data();
 
-		// Figure out which action should be taken based on the uri
-		$actions = array(
-			1 => array(
-				'year' => $year
-			),
-			2 => array(
-				'year' => $year,
-				'month' => $month
-			),
-			3 => array(
-				'year' => $year,
-				'month' => $month,
-				'day' => $day
-			)
-		);
-		$action = $actions[$this->uri->total_segments()];
-
-		// Get the entries based on the action chosen above
-		$parser_data['entries'] = $this->entry_model->get_where($action);
-
-		// Build the page title based on the URI
-		$titles = array(
-			1 => 'Entries from ' . $year,
-			2 => 'Entries from ' . $month . $year,
-			3 => 'Entries from ' . $day . $month . $year
-		);
-		$parser_data['title'] = $titles[$this->uri->total_segments()];
-
-		if (count($parser_data['entries']) > 0)
+		// Show different entries depending on what parameters have been specified
+		switch ($this->uri->total_segments())
 		{
-			$this->parser->parse('journal.html', $parser_data);
-		}
-		else
-		{
-			show_404();
+			// Only the year has been entered
+			case 1:
+				$where = array();
+				$where['year'] = $year;
+
+				// Get all the entries from the specified year
+				$parser_data['entries'] = $this->entry_model->get_where($where);
+				// Change the title accordingly
+				$parser_data['title'] = 'Entries from ' . $year;
+
+				if (count($parser_data['entries']) > 0)
+				{
+					$this->parser->parse('journal.html', $parser_data);
+				}
+				else
+				{
+					show_404();
+				}
+				break;
+
+			// The year and the month has been entered, but not the day
+			case 2:
+				$where = array();
+				$where['year'] = $year;
+				$where['month'] = $month;
+				$date = $year . '-' . $month;
+
+				// Get all the entries from the specified year
+				$parser_data['entries'] = $this->entry_model->get_where($where);
+				// Change the title accordingly
+				$parser_data['title'] = 'Entries from ' . date('M Y', strtotime($date));
+
+				if (count($parser_data['entries']) > 0)
+				{
+					$this->parser->parse('journal.html', $parser_data);
+				}
+				else
+				{
+					show_404();
+				}
+				break;
+
+			// The year, the month and the day have been entered
+			case 3:
+				$where['year'] = $year;
+				$where['month'] = $month;
+				$where['day'] = $day;
+				$date = $year . '-' . $month . '-' . $day;
+
+				// Get all the entries from the specified year
+				$parser_data['entries'] = $this->entry_model->get_where($where);
+				// Change the title accordingly
+				$parser_data['title'] = 'Entries from ' . date('d M Y', strtotime($date));
+
+				if (count($parser_data['entries']) > 0)
+				{
+					$this->parser->parse('journal.html', $parser_data);
+				}
+				else
+				{
+					show_404();
+				}
+				break;
+			
+			default:
+				show_404();
+				break;
 		}
 	}
 
