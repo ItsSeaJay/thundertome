@@ -32,7 +32,7 @@ class Journal extends CI_Controller {
 		$this->parser->parse('journal.html', $parser_data);
 	}
 
-	public function entries($year = '', $month = '', $day = '', $uri = '')
+	public function entries($year = '', $month = '', $day = '')
 	{
 		$parser_data = $this->get_parser_data();
 
@@ -49,12 +49,6 @@ class Journal extends CI_Controller {
 				'year' => $year,
 				'month' => $month,
 				'day' => $day
-			),
-			4 => array(
-				'year' => $year,
-				'month' => $month,
-				'day' => $day,
-				'uri' => $uri
 			)
 		);
 		$action = $actions[$this->uri->total_segments()];
@@ -69,7 +63,7 @@ class Journal extends CI_Controller {
 			3 => 'Entries from ' . $day . $month . $year
 		);
 		$parser_data['title'] = $titles[$this->uri->total_segments()];
-		
+
 		if (count($parser_data['entries']) > 0)
 		{
 			$this->parser->parse('journal.html', $parser_data);
@@ -80,9 +74,21 @@ class Journal extends CI_Controller {
 		}
 	}
 
-	private function get_parser_data()
+	public function entry($year = '', $month = '', $day = '', $uri = '')
 	{
-		$parser_data = array();
+		$where = array();
+		$where['year'] = $year;
+		$where['month'] = $month;
+		$where['day'] = $day;
+		$where['uri'] = $uri;
+		$parser_data = $this->get_parser_data($where);
+
+		$this->parser->parse('entry.html', $parser_data);
+	}
+
+	private function get_parser_data($where = array())
+	{
+		$parser_data = $this->entry_model->get($where) ?? array();
 		$parser_data['base_url'] = base_url();
 		$parser_data['index_page'] = index_page();
 		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data);
