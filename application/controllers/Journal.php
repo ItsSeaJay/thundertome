@@ -150,6 +150,7 @@ class Journal extends CI_Controller {
 		{
 			$entry['date'] = date('d/m/Y', strtotime($entry['date'] ?? ''));
 			$entry['base_url'] = base_url();
+			$entry['site_url'] = site_url();
 			$entry['index_page'] = index_page();
 		}
 	}

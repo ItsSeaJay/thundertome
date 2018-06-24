@@ -34,7 +34,7 @@
 
 		{entries}
 			<div class="entry">
-				<a href="{base_url}{index_page}{year}/{month}/{day}/{uri}">
+				<a href="{site_url}{year}/{month}/{day}/{uri}">
 					<h2>{title}</h2>
 				</a>
 				<p>
@@ -45,5 +45,9 @@
 				</p>
 			</div>
 		{/entries}
+
+		<footer class="footer">
+			<p><small>Powered by {application_name}</small></p>
+		</footer>
 	</body>
 </html>
