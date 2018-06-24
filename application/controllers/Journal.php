@@ -148,7 +148,7 @@ class Journal extends CI_Controller {
 	{
 		if (!empty($entry))
 		{
-			$entry['date'] = date('d/m/Y', strtotime($entry['date']));
+			$entry['date'] = date('d/m/Y', strtotime($entry['date'] ?? ''));
 			$entry['base_url'] = base_url();
 			$entry['index_page'] = index_page();
 		}

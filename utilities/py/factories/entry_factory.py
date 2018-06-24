@@ -40,13 +40,11 @@ class Entry_Factory(Factory):
 		# Replace all remaining non alphanumeric characters with the delimiter
 		uri = re.sub(r'[/_|+ -]+', delimiter, uri)
 
-		print(uri)
-
 		return uri
 
 	def get_entry(self):
 		entry = {}
-		entry['title'] = lipsum.generate_words(randint(1, 8)).title()
+		entry['title'] = lipsum.generate_words(randint(1, 8)).title().replace("'", "\\'")
 		entry['uri'] = self.generate_uri(entry['title'])
 		entry['content'] = lipsum.generate_sentences(randint(4, 12)).replace("'", "\\'")
 		entry['year'] = str(randint(2008, 2018))
