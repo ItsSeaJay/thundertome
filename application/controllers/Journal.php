@@ -116,7 +116,7 @@ class Journal extends CI_Controller {
 		$where['month'] = $month;
 		$where['day'] = $day;
 		$where['uri'] = $uri;
-		$parser_data = $this->get_parser_data();
+		$parser_data = $this->get_parser_data($where);
 
 		$this->parser->parse('entry.html', $parser_data);
 	}
