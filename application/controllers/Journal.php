@@ -15,7 +15,8 @@ class Journal extends CI_Controller {
 			'url'
 		);
 		$assets['libraries'] = array(
-			'parser'
+			'parser',
+			'pagination'
 		);
 
 		parent::__construct();
@@ -29,6 +30,23 @@ class Journal extends CI_Controller {
 		$parser_data['title'] = 'Journal';
 
 		$this->parser->parse('journal.html', $parser_data);
+	}
+
+	public function page($page = 0)
+	{
+		$config = array();
+		$config['base_url'] = base_url() . 'journal/page';
+		$config['total_rows'] = $this->entry_model->total_entries();
+		$config['per_page'] = 1;
+		$config['uri_segment'] = 3;
+
+		$this->pagination->initialize($config);
+
+		$parser_data = $this->get_parser_data();
+		$parser_data['entries'] = $this->entry_model->get_entry_page($page);
+		$parser_data['page_links'] = $this->pagination->create_links();
+
+		$this->parser->parse('page.html', $parser_data);
 	}
 
 	public function entries($year = '', $month = '', $day = '')

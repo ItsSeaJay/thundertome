@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>{title}</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="manifest" href="site.webmanifest">
+		<link rel="apple-touch-icon" href="icon.png">
+
+		<!-- Stylesheets -->
+		{stylesheets}
+	</head>
+
+	<body>
+		<!--[if lte IE 9]>
+			<p class="browserupgrade">
+				You are using an <strong>outdated</strong> browser.
+				Please
+				<a href="https://browsehappy.com/">
+					upgrade your browser
+				</a>
+				to improve your experience and security.
+			</p>
+		<![endif]-->
+
+		<h1>
+			<a href="{base_url}">
+				Journal
+			</a>
+		</h1>
+
+		{entries}
+			<div class="entry">
+				<a href="{site_url}{year}/{month}/{day}/{uri}">
+					<h2>{title}</h2>
+				</a>
+				<p>
+					<strong>{date}</strong>
+				</p>
+				<p>
+					{content}
+				</p>
+			</div>
+		{/entries}
+
+		<div class="page_links">
+			{page_links}
+		</div>
+
+		<footer class="footer">
+			<p><small>Powered by {application_name}</small></p>
+		</footer>
+	</body>
+</html>

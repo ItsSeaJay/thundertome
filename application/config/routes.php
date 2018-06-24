@@ -54,7 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // Entry permalinks
-$route['(:any)'] = 'journal/entries/$1';
-$route['(:any)/(:any)'] = 'journal/entries/$1/$2';
-$route['(:any)/(:any)/(:any)'] = 'journal/entries/$1/$2/$3';
-$route['(:any)/(:any)/(:any)/(:any)'] = 'journal/entry/$1/$2/$3/$4';
+$route['(:num)'] = 'journal/entries/$1';
+$route['(:num)/(:num)'] = 'journal/entries/$1/$2';
+$route['(:num)/(:num)/(:num)'] = 'journal/entries/$1/$2/$3';
+$route['(:num)/(:num)/(:num)/(:num)'] = 'journal/entry/$1/$2/$3/$4';

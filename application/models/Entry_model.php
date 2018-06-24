@@ -11,6 +11,21 @@ class Entry_model extends CI_Model {
 		$this->load->database();
 	}
 
+	public function total_entries()
+	{
+		return $this->db->count_all($this->table);
+	}
+
+	public function get_entry_page($page = 0, $limit = 8, $order = 'DESC')
+	{
+		$this->db->order_by('date', $order);
+		$this->db->limit($limit, $page * $limit);
+		$query = $this->db->get($this->table);
+		$result = $query->result_array();
+
+		return $result;
+	}
+
 	public function get_entry($where = array())
 	{
 		$this->db->where($where);
