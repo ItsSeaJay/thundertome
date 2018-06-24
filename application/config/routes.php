@@ -57,4 +57,6 @@ $route['translate_uri_dashes'] = FALSE;
 $route['(:num)'] = 'journal/entries/$1';
 $route['(:num)/(:num)'] = 'journal/entries/$1/$2';
 $route['(:num)/(:num)/(:num)'] = 'journal/entries/$1/$2/$3';
-$route['(:num)/(:num)/(:num)/(:num)'] = 'journal/entry/$1/$2/$3/$4';
+$route['(:num)/(:num)/(:num)/(:any)'] = 'journal/entry/$1/$2/$3/$4';
+// Pages
+$route['page/(:num)'] = 'journal/page/$1';

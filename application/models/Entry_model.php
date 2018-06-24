@@ -16,10 +16,11 @@ class Entry_model extends CI_Model {
 		return $this->db->count_all($this->table);
 	}
 
-	public function get_entry_page($page = 0, $limit = 8, $order = 'DESC')
+	public function get_entry_page($page = 1, $limit = 4, $order = 'DESC')
 	{
 		$this->db->order_by('date', $order);
-		$this->db->limit($limit, $page * $limit);
+		$offset = ($page - 1) * $limit;
+		$this->db->limit($limit, $offset);
 		$query = $this->db->get($this->table);
 		$result = $query->result_array();
 

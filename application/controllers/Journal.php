@@ -32,20 +32,22 @@ class Journal extends CI_Controller {
 		$this->parser->parse('journal.html', $parser_data);
 	}
 
-	public function page($page = 0)
+	public function page($page = 1)
 	{
 		$config = array();
-		$config['base_url'] = base_url() . 'journal/page';
+		$config['base_url'] = base_url() . 'page';
 		$config['total_rows'] = $this->entry_model->total_entries();
-		$config['per_page'] = 1;
-		$config['uri_segment'] = 3;
+		$config['per_page'] = 4;
+		$config['use_page_numbers'] = TRUE;
 
 		$this->pagination->initialize($config);
 
 		$parser_data = $this->get_parser_data();
-		$parser_data['entries'] = $this->entry_model->get_entry_page($page);
+		$parser_data['entries'] = $this->entry_model->get_entry_page($page, $config['per_page']);
+		$parser_data['page'] = $page;
 		$parser_data['page_links'] = $this->pagination->create_links();
 
+		$this->format_entries($parser_data['entries']);
 		$this->parser->parse('page.html', $parser_data);
 	}
 
