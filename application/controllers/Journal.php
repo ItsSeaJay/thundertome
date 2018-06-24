@@ -26,22 +26,14 @@ class Journal extends CI_Controller {
 
 	public function index()
 	{
+		// Show the first page of the journal
 		$this->page(1);
 	}
 
 	public function page($page = 1)
 	{
-		$config = array();
-		$config['base_url'] = base_url() . 'page';
-		$config['first_url'] = base_url();
-		$config['total_rows'] = $this->entry_model->total_entries();
-		$config['per_page'] = 4;
-		$config['use_page_numbers'] = TRUE;
-
-		$this->pagination->initialize($config);
-
 		$parser_data = $this->get_parser_data();
-		$parser_data['entries'] = $this->entry_model->get_entry_page($page, $config['per_page']);
+		$parser_data['entries'] = $this->entry_model->get_entry_page($page, 4);
 		$parser_data['page'] = $page;
 		$parser_data['page_links'] = $this->pagination->create_links();
 
