@@ -77,7 +77,7 @@ class Journal extends CI_Controller {
 
 				if (count($parser_data['entries']) > 0)
 				{
-					$this->parser->parse('journal/journal.html', $parser_data);
+					$this->parser->parse('journal/page.html', $parser_data);
 				}
 				else
 				{
@@ -96,7 +96,7 @@ class Journal extends CI_Controller {
 
 				if (count($parser_data['entries']) > 0)
 				{
-					$this->parser->parse('journal.html', $parser_data);
+					$this->parser->parse('journal/page.html', $parser_data);
 				}
 				else
 				{
@@ -115,7 +115,7 @@ class Journal extends CI_Controller {
 
 				if (count($parser_data['entries']) > 0)
 				{
-					$this->parser->parse('journal.html', $parser_data);
+					$this->parser->parse('journal/page.html', $parser_data);
 				}
 				else
 				{
