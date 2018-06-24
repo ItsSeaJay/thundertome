@@ -26,17 +26,21 @@
 			</p>
 		<![endif]-->
 
-		<h1>
-			<a href="{base_url}">
-				Journal
-			</a>
-		</h1>
+		<header class="header">
+			<h1>
+				<a href="{base_url}">
+					Journal
+				</a>
+			</h1>
+		</header>
 
 		{entries}
 			<div class="entry">
-				<a href="{site_url}{year}/{month}/{day}/{uri}">
-					<h2>{title}</h2>
-				</a>
+				<h2>
+					<a href="{site_url}{year}/{month}/{day}/{uri}">
+						{title}
+					</a>
+				</h2>
 				<p>
 					<strong>{date}</strong>
 				</p>

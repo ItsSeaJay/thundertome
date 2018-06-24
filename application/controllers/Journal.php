@@ -38,7 +38,7 @@ class Journal extends CI_Controller {
 		$parser_data['page_links'] = $this->pagination->create_links();
 
 		$this->format_entries($parser_data['entries']);
-		$this->parser->parse('page.html', $parser_data);
+		$this->parser->parse('journal/page.html', $parser_data);
 	}
 
 	public function entry($year = '', $month = '', $day = '', $uri = '')
@@ -52,7 +52,7 @@ class Journal extends CI_Controller {
 
 		if (isset($parser_data['title']))
 		{
-			$this->parser->parse('entry.html', $parser_data);
+			$this->parser->parse('journal/entry.html', $parser_data);
 		}
 		else
 		{
@@ -77,7 +77,7 @@ class Journal extends CI_Controller {
 
 				if (count($parser_data['entries']) > 0)
 				{
-					$this->parser->parse('journal.html', $parser_data);
+					$this->parser->parse('journal/journal.html', $parser_data);
 				}
 				else
 				{

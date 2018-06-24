@@ -69,6 +69,17 @@ $config['num_links'] = 0;
 
 /*
 |--------------------------------------------------------------------------
+| First link
+|--------------------------------------------------------------------------
+|
+| The text you would like shown in the “first” link on the left.
+| If you do not want this link rendered, you can set its value to FALSE.
+|
+*/
+$config['first_link'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
 | First URL
 |--------------------------------------------------------------------------
 |
@@ -76,3 +87,48 @@ $config['num_links'] = 0;
 |
 */
 $config['first_url'] = base_url();
+
+/*
+|--------------------------------------------------------------------------
+| Last link
+|--------------------------------------------------------------------------
+|
+| The text you would like shown in the “last” link on the right.
+| If you do not want this link rendered, you can set its value to FALSE.
+|
+*/
+$config['last_link'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Previous link
+|--------------------------------------------------------------------------
+|
+| The text you would like shown in the "previous" page link.
+| If you do not want this link rendered, you can set its value to FALSE.
+|
+*/
+$config['prev_link'] = 'Newer';
+
+/*
+|--------------------------------------------------------------------------
+| Next link
+|--------------------------------------------------------------------------
+|
+| The text you would like shown in the "previous" page link.
+| If you do not want this link rendered, you can set its value to FALSE.
+|
+*/
+$config['next_link'] = 'Older';
+
+/*
+|--------------------------------------------------------------------------
+| Display pages
+|--------------------------------------------------------------------------
+|
+| If you wanted to not list the specific pages (for example, you only want
+| “next” and “previous” links), you can suppress their rendering by
+| setting this value to FALSE.
+|
+*/
+$config['display_pages'] = FALSE;
