@@ -27,15 +27,12 @@ class Journal extends CI_Controller {
 	{
 		$parser_data = $this->get_parser_data();
 		$parser_data['title'] = 'Journal';
-		$parser_data['entries'] = $this->get_entries();
 
 		$this->parser->parse('journal.html', $parser_data);
 	}
 
 	public function entries($year = '', $month = '', $day = '')
 	{
-		$parser_data = $this->get_parser_data();
-
 		// Show different entries depending on what parameters have been specified
 		switch ($this->uri->total_segments())
 		{
@@ -45,7 +42,7 @@ class Journal extends CI_Controller {
 				$where['year'] = $year;
 
 				// Get all the entries from the specified year
-				$parser_data['entries'] = $this->entry_model->get_entries($where);
+				$parser_data = $this->get_parser_data($where);
 				// Change the title accordingly
 				$parser_data['title'] = 'Entries from ' . $year;
 
@@ -65,11 +62,8 @@ class Journal extends CI_Controller {
 				$where['year'] = $year;
 				$where['month'] = $month;
 				$date = $year . '-' . $month;
-
-				// Get all the entries from the specified year
-				$parser_data['entries'] = $this->entry_model->get_entries($where);
-				// Change the title accordingly
-				$parser_data['title'] = 'Entries from ' . date('M Y', strtotime($date));
+				$parser_data = $this->get_parser_data($where);
+				$parser_data['title'] = 'Entries from ' . date('F Y', strtotime($date));
 
 				if (count($parser_data['entries']) > 0)
 				{
@@ -81,17 +75,14 @@ class Journal extends CI_Controller {
 				}
 				break;
 
-			// The year, the month and the day have been entered
+			// The year, the month and the day have all been entered
 			case 3:
 				$where['year'] = $year;
 				$where['month'] = $month;
 				$where['day'] = $day;
 				$date = $year . '-' . $month . '-' . $day;
-
-				// Get all the entries from the specified year
-				$parser_data['entries'] = $this->entry_model->get_entries($where);
-				// Change the title accordingly
-				$parser_data['title'] = 'Entries from ' . date('d M Y', strtotime($date));
+				$parser_data = $this->get_parser_data($where);
+				$parser_data['title'] = 'Entries from ' . date('d F Y', strtotime($date));
 
 				if (count($parser_data['entries']) > 0)
 				{
@@ -131,9 +122,13 @@ class Journal extends CI_Controller {
 	private function get_parser_data($where = array())
 	{
 		$parser_data = $this->entry_model->get_entry($where) ?? array();
+		$parser_data['entries'] = $this->entry_model->get_entries($where) ?? array();
 		$parser_data['base_url'] = base_url();
 		$parser_data['index_page'] = index_page();
-		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data);
+		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data) ?? '';
+
+		$this->format_entry($parser_data);
+		$this->format_entries($parser_data['entries']);
 
 		return $parser_data;
 	}
@@ -149,18 +144,24 @@ class Journal extends CI_Controller {
 		return $stylesheets;
 	}
 
-	private function get_entries($year = '', $month = '', $day = '')
+	private function format_entry(&$entry = array())
 	{
-		$entries = $this->entry_model->get_entries();
-
-		foreach ($entries as &$entry)
+		if (!empty($entry))
 		{
-			// Change the values of the entry to better suit the parser
-			$entry['date'] = date('d.m.Y', strtotime($entry['date']));
+			$entry['date'] = date('d/m/Y', strtotime($entry['date']));
 			$entry['base_url'] = base_url();
 			$entry['index_page'] = index_page();
 		}
+	}
 
-		return $entries;
+	private function format_entries(&$entries = array())
+	{
+		if (!empty($entries))
+		{
+			foreach ($entries as &$entry)
+			{
+				$this->format_entry($entry);
+			}
+		}
 	}
 }
