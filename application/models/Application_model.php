@@ -14,8 +14,8 @@ class Application_model extends CI_Model {
     public function get_name()
     {
 		$query = $this->db->get($this->table);
-		$result = $query->result_array();
-		$name = $result['name'];
+		$row = $query->row_array();
+		$name = $row['name'];
 
 		return $name;
     }

@@ -123,7 +123,9 @@ class Journal extends CI_Controller {
 	{
 		$parser_data = $this->entry_model->get_entry($where) ?? array();
 		$parser_data['entries'] = $this->entry_model->get_entries($where) ?? array();
+		$parser_data['application_name'] = $this->application_model->get_name();
 		$parser_data['base_url'] = base_url();
+		$parser_data['site_url'] = site_url();
 		$parser_data['index_page'] = index_page();
 		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data) ?? '';
 
