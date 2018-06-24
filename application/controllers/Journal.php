@@ -26,16 +26,14 @@ class Journal extends CI_Controller {
 
 	public function index()
 	{
-		$parser_data = $this->get_parser_data();
-		$parser_data['title'] = 'Journal';
-
-		$this->parser->parse('journal.html', $parser_data);
+		$this->page(1);
 	}
 
 	public function page($page = 1)
 	{
 		$config = array();
 		$config['base_url'] = base_url() . 'page';
+		$config['first_url'] = base_url();
 		$config['total_rows'] = $this->entry_model->total_entries();
 		$config['per_page'] = 4;
 		$config['use_page_numbers'] = TRUE;
@@ -49,6 +47,25 @@ class Journal extends CI_Controller {
 
 		$this->format_entries($parser_data['entries']);
 		$this->parser->parse('page.html', $parser_data);
+	}
+
+	public function entry($year = '', $month = '', $day = '', $uri = '')
+	{
+		$where = array();
+		$where['year'] = $year;
+		$where['month'] = $month;
+		$where['day'] = $day;
+		$where['uri'] = $uri;
+		$parser_data = $this->get_parser_data($where);
+
+		if (isset($parser_data['title']))
+		{
+			$this->parser->parse('entry.html', $parser_data);
+		}
+		else
+		{
+			show_404();
+		}
 	}
 
 	public function entries($year = '', $month = '', $day = '')
@@ -117,25 +134,6 @@ class Journal extends CI_Controller {
 			default:
 				show_404();
 				break;
-		}
-	}
-
-	public function entry($year = '', $month = '', $day = '', $uri = '')
-	{
-		$where = array();
-		$where['year'] = $year;
-		$where['month'] = $month;
-		$where['day'] = $day;
-		$where['uri'] = $uri;
-		$parser_data = $this->get_parser_data($where);
-
-		if (isset($parser_data['title']))
-		{
-			$this->parser->parse('entry.html', $parser_data);
-		}
-		else
-		{
-			show_404();
 		}
 	}
 
