@@ -9,6 +9,7 @@ class Journal extends CI_Controller {
 		$assets = array();
 		$assets['models'] = array(
 			'application_model',
+			'author_model',
 			'entry_model'
 		);
 		$assets['helpers'] = array(
@@ -129,6 +130,22 @@ class Journal extends CI_Controller {
 		}
 	}
 
+	public function search()
+	{
+		// Get the user's query from the client
+		$like = array();
+		$like['title'] = $_GET['q'];
+
+		// Get the parser data for the results
+		$parser_data = $this->get_parser_data();
+		$parser_data['results'] = $this->entry_model->search($like);
+		$parser_data['total_results'] = count($parser_data['results']);
+		$parser_data['elapsed_time'] = $this->benchmark->elapsed_time() ?? 0;
+
+		// Show the results of the search
+		$this->parser->parse('journal/search/results.html', $parser_data);
+	}
+
 	private function get_parser_data($where = array())
 	{
 		$parser_data = $this->entry_model->get_entry($where) ?? array();
@@ -138,6 +155,7 @@ class Journal extends CI_Controller {
 		$parser_data['site_url'] = site_url();
 		$parser_data['index_page'] = index_page();
 		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data) ?? '';
+		$parser_data['search_bar'] = $this->get_search_bar($parser_data) ?? '';
 
 		$this->format_entry($parser_data);
 		$this->format_entries($parser_data['entries']);
@@ -156,10 +174,24 @@ class Journal extends CI_Controller {
 		return $stylesheets;
 	}
 
+	private function get_search_bar($parser_data = array())
+	{
+		$search_bar = $this->parser->parse(
+			'journal/search/bar.html',
+			$parser_data,
+			TRUE // Return result as a string
+		);
+
+		return $search_bar;
+	}
+
 	private function format_entry(&$entry = array())
 	{
 		if (!empty($entry))
 		{
+			$author = $this->author_model->get_author($entry['author']);
+
+			$entry['author'] = $author['username'];
 			$entry['date'] = date('d/m/Y', strtotime($entry['date'] ?? ''));
 			$entry['base_url'] = base_url();
 			$entry['site_url'] = site_url();

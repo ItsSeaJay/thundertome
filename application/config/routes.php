@@ -60,3 +60,5 @@ $route['(:num)/(:num)/(:num)'] = 'journal/entries/$1/$2/$3';
 $route['(:num)/(:num)/(:num)/(:any)'] = 'journal/entry/$1/$2/$3/$4';
 // Pages
 $route['page/(:num)'] = 'journal/page/$1';
+// Search results
+$route['search'] = 'journal/search';
