@@ -141,7 +141,6 @@ class Journal extends CI_Controller {
 		$parser_data['title'] = 'Search Results for ' . $_GET['q'];
 		$parser_data['results'] = $this->entry_model->search($like);
 		$parser_data['total_results'] = count($parser_data['results']);
-		$parser_data['elapsed_time'] = $this->benchmark->elapsed_time() ?? 0;
 
 		// Format the results
 		$this->format_entries($parser_data['results']);
