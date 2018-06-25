@@ -138,9 +138,13 @@ class Journal extends CI_Controller {
 
 		// Get the parser data for the results
 		$parser_data = $this->get_parser_data();
+		$parser_data['title'] = 'Search Results for ' . $_GET['q'];
 		$parser_data['results'] = $this->entry_model->search($like);
 		$parser_data['total_results'] = count($parser_data['results']);
 		$parser_data['elapsed_time'] = $this->benchmark->elapsed_time() ?? 0;
+
+		// Format the results
+		$this->format_entries($parser_data['results']);
 
 		// Show the results of the search
 		$this->parser->parse('journal/search/results.html', $parser_data);
