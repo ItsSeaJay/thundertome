@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2018 at 02:46 PM
+-- Generation Time: Jun 25, 2018 at 02:27 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -41,6 +41,26 @@ CREATE TABLE `application` (
 
 INSERT INTO `application` (`name`, `major_version`, `minor_version`, `patch`) VALUES
 ('Thundertome', 0, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authors`
+--
+
+CREATE TABLE `authors` (
+  `id` int(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `avatar` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `authors`
+--
+
+INSERT INTO `authors` (`id`, `username`, `password`, `avatar`) VALUES
+(1, 'John \'Rasmuslerdof\' Doe', '$2y$10$s3sBwRrZkCP6N6t/Vghy..Jan2rkd63iCHl3E0XK9KvnPy8E2TaVm', 'https://via.placeholder.com/64x64');
 
 -- --------------------------------------------------------
 
@@ -176,6 +196,12 @@ ALTER TABLE `application`
   ADD PRIMARY KEY (`name`);
 
 --
+-- Indexes for table `authors`
+--
+ALTER TABLE `authors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `entries`
 --
 ALTER TABLE `entries`
@@ -185,6 +211,11 @@ ALTER TABLE `entries`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `authors`
+--
+ALTER TABLE `authors`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `entries`
 --
