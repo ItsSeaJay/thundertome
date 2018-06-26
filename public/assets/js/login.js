@@ -1,5 +1,6 @@
 var login = {
-	request: function (argument) {
-		// body...
+	form: document.getElementsByTagName('form')[0],
+	request: function () {
+		
 	}
 }

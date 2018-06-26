@@ -13,6 +13,9 @@
 
 		<!-- Stylesheets -->
 		{stylesheets}
+
+		<!-- Scripts -->
+		<script src="{base_url}assets/js/login.js"></script>
 	</head>
 
 	<body>
@@ -32,6 +35,8 @@
 		</a>
 
 		<form action="{site_url}login/request" method="post">
+			<input id="csrf_hash" type="hidden" name="{csrf_token_name}" value="{csrf_hash}">
+
 			<!-- Username -->
 			<label for="username">Username</label>
 			<input name="username" type="text">

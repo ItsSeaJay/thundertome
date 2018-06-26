@@ -64,6 +64,8 @@ class Login extends CI_Controller {
 		$parser_data['base_url'] = base_url();
 		$parser_data['index_page'] = index_page();
 		$parser_data['site_url'] = site_url();
+		$parser_data['csrf_token_name'] = $this->security->get_csrf_token_name();
+		$parser_data['csrf_hash'] = $this->security->get_csrf_hash();
 		$parser_data['application_name'] = $this->application_model->get_name();
 		$parser_data['stylesheets'] = $this->get_stylesheets($parser_data);
 
