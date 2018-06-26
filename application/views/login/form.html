@@ -15,6 +15,10 @@
 		{stylesheets}
 
 		<!-- Scripts -->
+		<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
 		<script src="{base_url}assets/js/login.js"></script>
 	</head>
 
@@ -35,7 +39,11 @@
 		</a>
 
 		<form action="{site_url}login/request" method="post">
-			<input id="csrf_hash" type="hidden" name="{csrf_token_name}" value="{csrf_hash}">
+			<input
+			id="csrf_hash"
+			type="hidden"
+			name="{csrf_token_name}"
+			value="{csrf_hash}">
 
 			<!-- Username -->
 			<label for="username">Username</label>
