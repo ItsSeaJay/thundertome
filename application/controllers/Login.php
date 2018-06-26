@@ -37,11 +37,31 @@ class Login extends CI_Controller {
 
 		if (isset($_POST['username']) && isset($_POST['password']))
 		{
-			echo 'Good job.';
+			// Find the author through the username
+			$where = array();
+			$where['username'] = $_POST['username'];
+			$author = $this->author_model->get_author($where);
+			
+			if (!empty($author))
+			{
+				if (password_verify($_POST['password'], $author['password']))
+				{
+					$response['success'] = TRUE;
+					$response['message'] = 'Authentication successful';
+				}
+				else
+				{
+					$response['message'] = 'Password is incorrect';
+				}
+			}
+			else
+			{
+				$response['message'] = 'Username is incorrect';
+			}
 		}
 		else
 		{
-			$response['message'] = 'No form data sent.';
+			$response['message'] = 'No post data sent';
 		}
 
 		$json = json_encode($response);
@@ -53,7 +73,7 @@ class Login extends CI_Controller {
 		$response = array();
 		$response['success'] = FALSE;
 		$response['message'] = 'No error message specified';
-		$response['csrf_hash'] = 'No error message specified';
+		$response['csrf_hash'] = $this->security->get_csrf_hash();
 
 		return $response;
 	}

@@ -15,11 +15,13 @@
 		{stylesheets}
 
 		<!-- Scripts -->
+		<!-- JQuery -->
 		<script
 		src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
 		<script src="{base_url}assets/js/login.js"></script>
+		<script src="{base_url}assets/js/debounce.js"></script>
 	</head>
 
 	<body>
@@ -38,9 +40,13 @@
 			Go Back
 		</a>
 
-		<form action="{site_url}login/request" method="post">
+		<form
+		id="login"
+		action="{site_url}login/request"
+		method="post"
+		data-destination="{site_url}">
 			<input
-			id="csrf_hash"
+			id="csrf_token"
 			type="hidden"
 			name="{csrf_token_name}"
 			value="{csrf_hash}">
@@ -55,5 +61,7 @@
 			<!-- Submit -->
 			<button type="submit">Submit</button>
 		</form>
+
+		<div id="fail"></div>
 	</body>
 </html>
