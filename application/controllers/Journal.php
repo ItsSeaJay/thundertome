@@ -192,7 +192,10 @@ class Journal extends CI_Controller {
 	{
 		if (!empty($entry))
 		{
-			$author = $this->author_model->get_author($entry['author']);
+			$where = array();
+			$where['id'] = $entry['author'];
+
+			$author = $this->author_model->get_author($where);
 
 			$entry['author'] = $author['username'];
 			$entry['date'] = date('d/m/Y', strtotime($entry['date'] ?? ''));

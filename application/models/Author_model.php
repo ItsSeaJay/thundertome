@@ -11,8 +11,9 @@ class Author_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_author($id = 1)
+	public function get_author($where = array())
 	{
+		$this->db->where($where);
 		$query = $this->db->get($this->table);
 		$row = $query->row_array();
 

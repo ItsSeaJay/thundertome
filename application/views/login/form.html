@@ -10,6 +10,9 @@
 
 		<link rel="manifest" href="site.webmanifest">
 		<link rel="apple-touch-icon" href="icon.png">
+
+		<!-- Stylesheets -->
+		{stylesheets}
 	</head>
 
 	<body>
@@ -28,7 +31,7 @@
 			Go Back
 		</a>
 
-		<form action="{site_url}login/attempt" method="post">
+		<form action="{site_url}login/request" method="post">
 			<!-- Username -->
 			<label for="username">Username</label>
 			<input name="username" type="text">
